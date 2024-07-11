@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, TouchableOpacity, ScrollView, StyleSheet, Text, View, FlatList } from 'react-native';
 import Navbar from '../navigation/TopNavBar';
+import Product from '../components/Product';
 
 
 
@@ -23,13 +24,22 @@ export default function HomeScreen({navigation}) {
         <Navbar/>
         <View style={styles.subHeader}>
           <Text style={styles.text}>OUR STORY</Text>
-          <Pressable style={styles.list}>
-            <Image source={require('./../assets/images/Listview.png')} style={styles.listIcon} />
-          </Pressable>
-          <Pressable style={styles.filter}>
+          <TouchableOpacity style={styles.list}>
+            <Image source={require('./../assets/images/ListView.png')} style={styles.listIcon} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.filter}>
             <Image source={require('./../assets/images/Filter.png')} style={styles.filterIcon} />
-          </Pressable>
+          </TouchableOpacity>
         </View>
+        <FlatList
+          data={products}
+          renderItem={({ item }) =>
+            <Product item={item} onPress={() => handlePress(item)} />
+        }
+          keyExtractor={(item) => item.id.toString()}
+          numColumns={2}
+          contentContainerStyle={styles.flatListContent}
+        />
       </View>
     </ScrollView>
   );
@@ -37,6 +47,7 @@ export default function HomeScreen({navigation}) {
 const styles = StyleSheet.create({
   scroll: {
     flex: 1,
+    backgroundColor:'#fff',
   },
   container: {
     flex: 1,

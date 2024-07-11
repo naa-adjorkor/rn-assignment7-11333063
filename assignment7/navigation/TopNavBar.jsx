@@ -1,4 +1,4 @@
-import { View, Image,StyleSheet,Pressable } from 'react-native'
+import { View, Image,StyleSheet,TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import React from 'react'
 
@@ -15,9 +15,9 @@ export default function TopNavBar() {
                 <Image source={require('./../assets/images/Menu.png')} style={styles.menu} />
                 <Image source={require('./../assets/images/Logo.png')} style={styles.logo} />
                 <Image source={require('./../assets/images/Search.png')} style={styles.search} />
-                <Pressable onPress={handleCart}>
+                <TouchableOpacity onPress={handleCart}>
                     <Image source={require('./../assets/images/shoppingBag.png')} style={styles.bag} />
-                </Pressable>
+                </TouchableOpacity>
             </View>
         </View>
     );

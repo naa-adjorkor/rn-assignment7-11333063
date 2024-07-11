@@ -4,7 +4,7 @@ import HomeScreen from './screens/HomeScreen'
 import ProductDetailScreen from './screens/ProductDetailScreen'
 import CartScreen from './screens/CartScreen'
 
-const Stack = createStackNavigator();  
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
