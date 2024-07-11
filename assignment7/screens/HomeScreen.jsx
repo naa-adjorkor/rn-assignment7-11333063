@@ -4,7 +4,6 @@ import Navbar from '../navigation/TopNavBar';
 import Product from '../components/Product';
 
 
-
 export default function HomeScreen({navigation}) {
     const [products, setProducts] = useState([]);
 

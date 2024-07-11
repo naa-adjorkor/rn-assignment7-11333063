@@ -4,7 +4,7 @@ import React from 'react'
 
 const addIcon = require('./../assets/images/add_circle.png');
 export default function Product({item, onPress}) {
-  return (
+    return (
     <View style={styles.container}>
     <View style={styles.body}>
         <View style={styles.imageContainer}>
