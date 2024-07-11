@@ -3,13 +3,13 @@ import React from 'react'
 
 
 const addIcon = require('./../assets/images/add_circle.png');
-export default function Product({item, onPress}) {
+export default function Product({item, onPress, addToCart}) {
     return (
     <View style={styles.container}>
     <View style={styles.body}>
         <View style={styles.imageContainer}>
             <Pressable onPress={onPress}><Image source={{uri:item.image}} style={styles.image}/></Pressable>
-            <TouchableOpacity style={styles.addIcon}><Image source={addIcon} style={styles.add}/></TouchableOpacity>
+            <TouchableOpacity style={styles.addIcon} onPress={()=> addToCart(item)}><Image source={addIcon} style={styles.add}/></TouchableOpacity>
         </View>
     </View>
     <View style={styles.textContainer}>

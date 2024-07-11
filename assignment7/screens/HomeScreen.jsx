@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Image, TouchableOpacity, ScrollView, StyleSheet, Text, View, FlatList } from 'react-native';
+import { Image, TouchableOpacity, ScrollView, StyleSheet, Text, View, FlatList, Alert } from 'react-native';
 import Navbar from '../navigation/TopNavBar';
 import Product from '../components/Product';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useCart } from '../components/CartContext';
 
 
 export default function HomeScreen({navigation}) {
     const [products, setProducts] = useState([]);
+    const { cart, setCart } = useCart();
 
     useEffect(() => {
     fetch('https://fakestoreapi.com/products')
@@ -17,6 +20,33 @@ export default function HomeScreen({navigation}) {
     const handlePress = (product) => {
       navigation.navigate('Details', { product });
     };
+
+    useEffect(() => {
+      const loadCart = async () => {
+        try {
+          const cartData = await AsyncStorage.getItem('cart');
+          if (cartData) {
+            setCart(JSON.parse(cartData));
+          }
+        } catch (error) {
+          console.error('Error loading cart:', error);
+          Alert.alert('Error', 'Failed to load cart items');
+        }
+      };
+      loadCart();
+    }, [setCart]);
+  
+    const addToCart = async (item) => {
+      try {
+        const updatedCart = [...cart, { ...item, key: `${item.id}-${Date.now()}` }];
+        setCart(updatedCart);
+        await AsyncStorage.setItem('cart', JSON.stringify(updatedCart));
+      } catch (error) {
+        console.error('Error adding to cart:', error);
+        Alert.alert('Error', 'Failed to add item to cart');
+      }
+    };
+  
   return (
     <ScrollView style={styles.scroll}>
       <View style={styles.container}>
@@ -33,7 +63,7 @@ export default function HomeScreen({navigation}) {
         <FlatList
           data={products}
           renderItem={({ item }) =>
-            <Product item={item} onPress={() => handlePress(item)} />
+            <Product item={item} onPress={() => handlePress(item)} addToCart={addToCart}/>
         }
           keyExtractor={(item) => item.id.toString()}
           numColumns={2}
