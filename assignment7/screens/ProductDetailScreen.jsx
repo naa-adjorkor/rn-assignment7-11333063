@@ -11,6 +11,8 @@ const addToCart = require('./../assets/images/Plus.png')
 const favIcon = require('./../assets/images/Heart.png')
 const shippingIcon = require('./../assets/images/Shipping.png')
 const upIcon = require('./../assets/images/Up.png')
+
+
 export default function ProductDetailScreen({ route }) {
   const { product } = route.params;
 
@@ -24,7 +26,7 @@ export default function ProductDetailScreen({ route }) {
           <Text style={styles.title}>{product.title}</Text>
           <Image source={exportIcon} style={styles.exportIcon} />
         </View>
-        <Text style={styles.category}>{product.category}</Text>
+        <Text style={styles.description}>{product.description}</Text>
         <Text style={styles.price}>${product.price}</Text>
       </View>
       <View style={styles.section}>
@@ -91,7 +93,7 @@ detailsContainer:{
 },
 image: {
   width: '100%',
-  height: 250,
+  height: 200,
   resizeMode: 'contain',
 },
 header: {
@@ -108,14 +110,14 @@ title:{
   fontWeight:'400',
   color:'#000',
 },
-category:{
-  top:5,
+description:{
+  top:6,
   fontSize:16,
   fontWeight:'400',
   color:'#AAAAAA',
 },
 price:{
-  top:10,
+  top:12,
   fontSize:20,
   fontWeight:'300',
   color:'#FFA100',
